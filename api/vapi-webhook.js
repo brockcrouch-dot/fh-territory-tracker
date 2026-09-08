@@ -151,16 +151,13 @@ export default async function handler(req, res) {
           ...headers,
           Prefer: "return=minimal",
         },
-        body: JSON.stringify({
-          user_id: lead.user_id,
-          lead_id: lead.id,
-          kind: "Business",
-          name: lead.name,
-          status: "Appointment",
-          notes: appointmentNotes,
-          happened_at: message.endedAt || new Date().toISOString(),
-          follow_up_at: start || null,
-        }),
+       body: JSON.stringify({
+  user_id: lead.user_id,
+  lead_id: lead.id,
+  activity_type: "Appointment",
+  notes: appointmentNotes,
+  created_at: message.endedAt || new Date().toISOString(),
+}),
       }
     );
 
