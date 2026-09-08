@@ -5,6 +5,7 @@ export default async function handler(req, res) {
 
   try {
     const { phone, name, business } = req.body || {};
+    const formattedPhone = phone ? (phone.startsWith("+") ? phone : "+1" + phone.replace(/\D/g, "")) : "";
 
     if (!phone) {
       return res.status(400).json({ error: "Phone number is required" });
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
         assistantId: process.env.VAPI_ASSISTANT_ID,
         phoneNumberId: process.env.VAPI_PHONE_NUMBER_ID,
         customer: {
-          number: phone,
+          number: formattedPhone,
           name: name || business || "Prospect",
         },
         assistantOverrides: {
