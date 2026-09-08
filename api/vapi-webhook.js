@@ -82,7 +82,7 @@ export default async function handler(req, res) {
 
     // Get the lead first so we also have its user_id, kind and name.
     const leadResponse = await fetch(
-      `${supabaseUrl}/rest/v1/leads?id=eq.${encodeURIComponent(leadId)}&select=id,user_id,kind,name`,
+      `${supabaseUrl}/rest/v1/leads?id=eq.${encodeURIComponent(leadId)}&select=id,user_id,name`,
       { headers }
     );
 
@@ -154,7 +154,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           user_id: lead.user_id,
           lead_id: lead.id,
-          kind: lead.kind,
+          kind: "Business",
           name: lead.name,
           status: "Appointment",
           notes: appointmentNotes,
