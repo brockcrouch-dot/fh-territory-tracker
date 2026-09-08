@@ -3,8 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  try {
-    const { phone, name, business } = req.body || {};
+  try {const { phone, name, businessName, town, leadId } = req.body || {};
     const formattedPhone = phone ? (phone.startsWith("+") ? phone : "+1" + phone.replace(/\D/g, "")) : "";
 
     if (!phone) {
@@ -22,13 +21,15 @@ export default async function handler(req, res) {
         phoneNumberId: process.env.VAPI_PHONE_NUMBER_ID,
         customer: {
           number: formattedPhone,
-          name: name || business || "Prospect",
+          name: name || businessName || "Prospect",
         },
         assistantOverrides: {
-          variableValues: {
-            prospectName: name || "",
-            businessName: business || "",
-          },
+         variableValues: {
+  prospectName: name || "",
+  businessName: businessName || "",
+  town: town || "",
+  leadId: leadId || "",
+},
         },
       }),
     });
